@@ -8,12 +8,18 @@ class App extends Component {
         super();
         this.state = {
         usa: [],
-        visited: []
+        visited: [],
+        apiResponse: ""
 
         };
 
     }
 
+    callAPI() {
+        fetch("http://localhost:9000/testAPI")
+            .then(res => res.text())
+            .then(res => this.setState({ apiResponse: res }));
+    }
 
     mapHandler = (event) => {
 
@@ -22,7 +28,10 @@ class App extends Component {
         // alert("event.target.dataset.name");
 
     };
+
     componentDidMount() {
+        this.callAPI();
+
         this.setState({visited: [...this.state.visited, 0]});
         this.setState({ usa: [...states.data] });
     }
@@ -92,7 +101,7 @@ class App extends Component {
     render() {
         return (
         <div className="App">
-            <h1>USA</h1>
+            <h1>USA {this.state.apiResponse}</h1>
             <USAMap customize={this.statesFilling()} onClick={this.handleState} />
         </div>
         );
