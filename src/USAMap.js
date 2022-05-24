@@ -53,8 +53,20 @@ class App extends Component {
                 var s2 = this.state.visited[j].abbreviation.toString();
 
                 if (s1 === s2) {
-                console.log(s.attributes.abbreviation, this.state.visited[j].abbreviation);
-
+                    console.log(s.attributes.abbreviation, this.state.visited[j].abbreviation);
+                    var updatestate = {'id' : s.id};
+                    console.log(updatestate.id);
+                    fetch("http://localhost:9000/states",
+                    {
+                        method:'PATCH', 
+                        body: JSON.stringify(updatestate),
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8",
+                        }
+                    }) 
+                    .then(res => res.json())
+                    // .then(setUpdate(update + 1))
+                    .then(console.log("finished"));
                     s.attributes.visited = true;
                     console.log('#####');
 
@@ -63,7 +75,7 @@ class App extends Component {
         });
 
         // console.log(`${abbr} test`);
-        }
+        }                       
 
     statesFilling = () => {
         // console.log("testing");

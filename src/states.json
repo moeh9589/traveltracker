@@ -94,6 +94,7 @@
       {
         "type": "states",
         "id": "20d1f826-bffb-11eb-a4b3-0242ac110002",
+        "visited": false,
         "attributes": {
           "name": "Delaware",
           "abbreviation": "DE",
