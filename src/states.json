@@ -105,19 +105,7 @@
           "visited": false
         }
       },
-      {
-        "type": "states",
-        "id": "20e20b3a-bffb-11eb-aa95-0242ac110002",
-        "attributes": {
-          "name": "District of Columbia",
-          "abbreviation": "DC",
-          "summary": null,
-          "image": "https://assets.cdn.usconcealedcarry.com/reciprocity/states/dc-seal.png",
-          "createdAt": "2021-05-28 16:24:47",
-          "updatedAt": "2021-05-28 16:24:47",
-          "visited": false
-        }
-      },
+      
       {
         "type": "states",
         "id": "20d25406-bffb-11eb-91b1-0242ac110002",
@@ -657,7 +645,7 @@
         "attributes": {
           "name": "Wisconsin",
           "abbreviation": "WI",
-          "summary": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et odio nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. In at quam orci. Curabitur eleifend scelerisque rhoncus. Cras tincidunt, magna sed maximus vehicula, sem dolor porta orci, et mollis massa eros a eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "summary": null,
           "image": "https://assets.cdn.usconcealedcarry.com/reciprocity/states/wi-seal.png",
           "createdAt": "2021-05-28 16:24:47",
           "updatedAt": "2021-06-01 12:37:05",
