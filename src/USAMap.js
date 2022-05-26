@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import USAMap from "react-usa-map";
 import states from "./states.json";
 import "./usa.css"
+
 class App extends Component {
     constructor() {
         super();
@@ -50,7 +51,7 @@ class App extends Component {
         this.state.usa.forEach((s, i) => {
             for (var j = 1; j < this.state.visited.length; j++) {
                 var s1 = s.attributes.abbreviation.toString();
-                var s2 = this.state.visited[j].abbreviation.toString();
+                var s2 = this.state.visited[j].abbreviation;
 
                 if (s1 === s2) {
                     console.log(s.attributes.abbreviation, this.state.visited[j].abbreviation);
@@ -81,25 +82,42 @@ class App extends Component {
         // console.log("testing");
         const something = {};
         this.state.usa.forEach((state, i) => {
-        const { abbreviation, name } = state.attributes;
-        let fill = "#C8102E";
+            const { abbreviation, name } = state.attributes;
+            let fill = "#C8102E";
 
-        if( state.attributes.visited === true) {
-            // console.log('true');
-            fill = "#21B205";
-        }
-        //   if (name.includes("k")) {
-        //     fill = "#21B205";
-        //   } else if (name.includes("x")) {
-        //     fill = "#DDAC04";
-        //   }
+            const v = fetch("http://localhost:9000/states/" + abbreviation)
+                .then(response => response.json())
+                .then(compstate => {
+                    return compstate;
+                });
+                
+            const compState_ = async () => {
+                const c = await v;
+                if (c === true) {
+                    state.attributes.visited = true;
+                }
 
-        something[abbreviation] = {
-            abbreviation,
-            fill,
-            clickHandler: () => this.handleState(something[abbreviation])
-        };
+                console.log(c, state.attributes.abbreviation);
+
+                return c;
+
+            }
+            const c = compState_();
+            console.log(c);
+            // console.log(compState);
+
+            if (state.attributes.visited === true) {
+                fill = "#21B205";
+            }
+
+
+            something[abbreviation] = {
+                abbreviation,
+                fill,
+                clickHandler: () => this.handleState(something[abbreviation])
+            };
         });
+
 
         // console.log(something);
         // console.log(visited);

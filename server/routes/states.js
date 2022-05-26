@@ -5,10 +5,25 @@ var router = express.Router();
 
 
 router.get('/', function(req, res, next) {
-    res.send("API is working properly");
-    // var db = req.app.locals.db;
-    // var cursor = db.collection("test").find();
-    // cursor.toArray().then(c => res.json(c));
+    var db = req.app.locals.db;
+    var cursor = db.collection("test").find();
+    cursor.toArray().then(c => res.json(c));
+    });
+    
+    
+router.get('/:abbreviation', function(req, res, next) {
+    var abbreviation = req.params.abbreviation;
+    var db = req.app.locals.db;
+    const query = {'attributes.abbreviation': abbreviation};
+    db.collection('states')
+        .findOne(query)
+        .then(result => {
+            console.log(`Got state ${result.attributes.abbreviation}`);
+            res.json(result.attributes.visited);
+        })
+        .catch(err=>{
+            console.log(`Error: ${err}`);
+        });
     });
 
 
