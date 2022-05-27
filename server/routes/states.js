@@ -53,12 +53,13 @@ router.post('/', function(req, res, next) {
 
 router.patch('/', function(req, res, next) {
     const state_ = {
-        'id' : req.body.id
+        'id' : req.body.id,
+        
     }
-
+    console.log(req.body.visited);
     var db = req.app.locals.db; 
 
-    db.collection('states').updateOne(state_, {$set: {'attributes.visited': true}}, {upsert:true});
+    db.collection('states').updateOne(state_, {$set: {'attributes.visited': !req.body.visited}}, {upsert:true});
 
     res.json({'message': " Visited set to true "});
 });

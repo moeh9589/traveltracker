@@ -11,9 +11,11 @@ class App extends Component {
         usa: [],
         visited: [],
         apiResponse: ""
-
         };
+    }
 
+    refreshPage() {
+        window.location.reload(false);
     }
 
     callAPI() {
@@ -30,10 +32,15 @@ class App extends Component {
 
     };
 
+    updateVisited () {
+        this.setState({visited: [...this.state.visited]});
+    }
+
+
+
     componentDidMount() {
         this.callAPI();
-
-        this.setState({visited: [...this.state.visited, 0]});
+        this.setState({visited: [...this.state.visited]});
         this.setState({ usa: [...states.data] });
     }
 
@@ -44,7 +51,7 @@ class App extends Component {
         console.log("LENGTH",this.state.visited.length);
 
         for (var j = 0; j < this.state.visited.length; j++) {
-            console.log(this.state.visited[j].abbreviation);
+            console.log(this.state.visited[j]);
 
 
         }
@@ -55,8 +62,10 @@ class App extends Component {
 
                 if (s1 === s2) {
                     console.log(s.attributes.abbreviation, this.state.visited[j].abbreviation);
-                    var updatestate = {'id' : s.id};
-                    console.log(updatestate.id);
+                    var updatestate = {'id' : s.id,
+                                        'visited': s.attributes.visited
+                                        };
+                    console.log(updatestate.id, updatestate.visited);
                     fetch("http://localhost:9000/states",
                     {
                         method:'PATCH', 
@@ -68,11 +77,12 @@ class App extends Component {
                     .then(res => res.json())
                     // .then(setUpdate(update + 1))
                     .then(console.log("finished"));
-                    s.attributes.visited = true;
+                    s.attributes.visited = !s.attributes.visited;
                     console.log('#####');
 
                 }
             }
+            // this.refreshPage();
         });
 
         // console.log(`${abbr} test`);
@@ -83,7 +93,7 @@ class App extends Component {
         const something = {};
         this.state.usa.forEach((state, i) => {
             const { abbreviation, name } = state.attributes;
-            let fill = "#C8102E";
+            let fill = "#ff4d4d";
 
             const v = fetch("http://localhost:9000/states/" + abbreviation)
                 .then(response => response.json())
@@ -96,18 +106,24 @@ class App extends Component {
                 if (c === true) {
                     state.attributes.visited = true;
                 }
+                else if (c === false) {
+                    state.attributes.visited = false;
+                }
 
-                console.log(c, state.attributes.abbreviation);
+                // console.log(c, state.attributes.abbreviation);
 
                 return c;
 
             }
             const c = compState_();
-            console.log(c);
+            // console.log(c);
             // console.log(compState);
 
             if (state.attributes.visited === true) {
-                fill = "#21B205";
+                fill = "#57de6d";
+            }
+            else if (state.attributes.visited === false) {
+                fill = "#ff4d4d";
             }
 
 
@@ -125,14 +141,15 @@ class App extends Component {
         //     console.log("dfgdf");
         //     // console.log(visited.state.name);
         // }
+
         return { ...something };
     };
 
     render() {
         return (
         <div className="App">
-            <h1>USA {this.state.apiResponse}</h1>
-            <USAMap customize={this.statesFilling()} onClick={this.handleState} />
+            <h1>USA</h1>
+            <USAMap customize={this.statesFilling()} onClick={this.handleState} componentDidMount={this.handleState} />
         </div>
         );
     }

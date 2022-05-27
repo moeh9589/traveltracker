@@ -7,8 +7,14 @@ function App() {
     <div className="App">
       <header className="App-header">
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
-
-        <USMap />
+        <div className='USAdiv'>
+          <USMap />
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
         <GeoChart />
 
       </header>

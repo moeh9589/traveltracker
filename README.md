@@ -7,6 +7,7 @@ Want to implemenet:
         States remaining
         Partially Visited Color
         Change from visited to unvisited
+        Capital Cities
     World:
         Visited
         Countries visited

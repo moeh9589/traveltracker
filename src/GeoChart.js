@@ -19,9 +19,10 @@ class GeoChart extends Component {
                 height={'80vw'}
                 chartType="GeoChart"
                 data={geoData}
+                Color='#000000'
                 // Note: you will need to get a mapsApiKey for your project.
                 // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-                mapsApiKey="YOUR_MAP_API_KEY_GOES_HERE"
+                mapsApiKey="test"
                 rootProps={{ 'data-testid': '1' }}
                 />
             </div>
