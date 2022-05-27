@@ -2,16 +2,24 @@
 import React, { Component } from "react";
 import USAMap from "react-usa-map";
 import states from "./states.json";
-import "./usa.css"
+import "./usa.css";
+import "./USAMap.css";
 
 class App extends Component {
     constructor() {
         super();
+        this.pickingColor = ""
         this.state = {
         usa: [],
         visited: [],
-        apiResponse: ""
+        apiResponse: "",
+        visitednum:0
         };
+    }
+
+    colorPicker(color) {
+        this.pickingColor = color;
+        return this.pickingColor;
     }
 
     refreshPage() {
@@ -52,9 +60,8 @@ class App extends Component {
 
         for (var j = 0; j < this.state.visited.length; j++) {
             console.log(this.state.visited[j]);
-
-
         }
+
         this.state.usa.forEach((s, i) => {
             for (var j = 1; j < this.state.visited.length; j++) {
                 var s1 = s.attributes.abbreviation.toString();
@@ -77,10 +84,46 @@ class App extends Component {
                     .then(res => res.json())
                     // .then(setUpdate(update + 1))
                     .then(console.log("finished"));
-                    s.attributes.visited = !s.attributes.visited;
+
+                    //red
+                    if (this.pickingColor == '#ff4d4d') {
+                        s.attributes.visited = 0;
+                        s.attributes.visited = 0;
+
+                        // var array = [...this.state.visited];
+                        // array.splice(0,1);
+                        // array.splice(j,1);
+                        // this.setState({visited: array});
+                    }
+
+                    //green
+                    else if (this.pickingColor == '#57de6d') {
+                        s.attributes.visited = 1;
+                        s.attributes.visited = 1;
+
+                        // var array = [...this.state.visited];
+                        // array.splice(0,1);
+                        // array.splice(j,1);
+                        // this.setState({visited: array}); 
+                    }
+                    
+                    //yellow
+                    else if (this.pickingColor == '#fdfd7d') {
+                        s.attributes.visited = 2;
+                        s.attributes.visited = 2;
+
+                        // var array = [...this.state.visited];
+                        // array.splice(0,1);
+                        // array.splice(j,1);
+                        // this.setState({visited: array}); 
+                    }
+                    
+
+                    // s.attributes.visited = !s.attributes.visited;
                     console.log('#####');
 
                 }
+                
             }
             // this.refreshPage();
         });
@@ -103,11 +146,17 @@ class App extends Component {
                 
             const compState_ = async () => {
                 const c = await v;
-                if (c === true) {
-                    state.attributes.visited = true;
+
+                if (c === 0) {
+                    state.attributes.visited = 0;
                 }
-                else if (c === false) {
-                    state.attributes.visited = false;
+
+                else if (c === 1) {
+                    state.attributes.visited = 1;
+                }
+                
+                else if (c === 2) {
+                    state.attributes.visited = 2;
                 }
 
                 // console.log(c, state.attributes.abbreviation);
@@ -119,11 +168,16 @@ class App extends Component {
             // console.log(c);
             // console.log(compState);
 
-            if (state.attributes.visited === true) {
+            if (state.attributes.visited === 0) {
+                fill = "#ff4d4d";
+            }
+
+            else if (state.attributes.visited === 1) {
                 fill = "#57de6d";
             }
-            else if (state.attributes.visited === false) {
-                fill = "#ff4d4d";
+
+            else if (state.attributes.visited === 2) {
+                fill = "#fdfd7d";
             }
 
 
@@ -141,7 +195,7 @@ class App extends Component {
         //     console.log("dfgdf");
         //     // console.log(visited.state.name);
         // }
-
+        
         return { ...something };
     };
 
@@ -149,6 +203,13 @@ class App extends Component {
         return (
         <div className="App">
             <h1>USA</h1>
+            <div >
+                <h5>Select a Color</h5>
+                <button className="base_button button1"  onClick={()=>this.pickingColor='#ff4d4d'}></button> {/*  red   */}
+                <button className="base_button button2" onClick={()=>this.pickingColor='#57de6d'}></button> {/* green  */}
+                <button className="base_button button3"  onClick={()=>this.pickingColor='#fdfd7d'}></button> {/* yellow */}
+            </div>
+                
             <USAMap customize={this.statesFilling()} onClick={this.handleState} componentDidMount={this.handleState} />
         </div>
         );
