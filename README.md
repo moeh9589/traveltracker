@@ -3,11 +3,10 @@ Want to implemenet:
         Register and Login
         Styling
     USA:
-        States appear green on launch
         States remaining
         Partially Visited Color
-        Change from visited to unvisited
         Capital Cities
+        Key for color definitions
     World:
         Visited
         Countries visited
